@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:17.4
+    environment:
+      POSTGRES_DB: match_odds_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    networks:
+      - match-network
+
+  app:
+    image: match-odds
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/match_odds_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: password123
+    ports:
+      - "1234:8080"
+    networks:
+      - match-network
+
+networks:
+  match-network:
+    driver: bridge
