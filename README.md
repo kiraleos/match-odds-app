@@ -6,4 +6,3 @@
 # TODO
 
 1. Add tests
-2. Add swagger documentation
