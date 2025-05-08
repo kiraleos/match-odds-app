@@ -1,6 +1,8 @@
 package org.example.database.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.example.database.converter.SportConverter;
 
 import java.time.LocalDate;
@@ -13,21 +15,27 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(name = "description")
     private String description;
 
+    @NotNull
     @Column(name = "match_date")
     private LocalDate matchDate;
 
+    @NotNull
     @Column(name = "match_time")
     private LocalTime matchTime;
 
+    @NotBlank
     @Column(name = "team_a")
     private String teamA;
 
+    @NotBlank
     @Column(name = "team_b")
     private String teamB;
 
+    @NotNull
     @Column(name = "sport")
     @Convert(converter = SportConverter.class)
     private Sport sport;

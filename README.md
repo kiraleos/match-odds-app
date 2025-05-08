@@ -6,5 +6,4 @@
 
 1. Add tests
 2. Add swagger documentation
-5. Input Validation: Use validation annotations (@NotNull, @Size, etc.) to ensure data integrity.
 6. Add caching

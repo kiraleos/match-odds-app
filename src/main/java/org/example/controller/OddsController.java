@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import jakarta.validation.Valid;
 import org.example.database.model.Odds;
 import org.example.service.OddsService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class OddsController {
     }
 
     @PostMapping
-    public ResponseEntity<Odds> createMatchOdds(@RequestBody Odds odds, @PathVariable Long matchId) {
+    public ResponseEntity<Odds> createMatchOdds(@RequestBody @Valid Odds odds, @PathVariable Long matchId) {
         Odds createdOdds = oddsService.createMatchOdds(odds, matchId);
         return new ResponseEntity<>(createdOdds, HttpStatus.CREATED);
     }
@@ -45,7 +46,7 @@ public class OddsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Odds> updateMatchOdds(@PathVariable Long id, @RequestBody Odds odds, @PathVariable Long matchId) {
+    public ResponseEntity<Odds> updateMatchOdds(@PathVariable Long id, @RequestBody @Valid Odds odds, @PathVariable Long matchId) {
         Optional<Odds> updatedOdds = oddsService.updateMatchOdds(id, odds, matchId);
         return updatedOdds.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }

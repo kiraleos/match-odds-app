@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import jakarta.validation.Valid;
 import org.example.database.model.Match;
 import org.example.service.MatchService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class MatchController {
     }
 
     @PostMapping
-    public ResponseEntity<Match> createMatch(@RequestBody Match match) {
+    public ResponseEntity<Match> createMatch(@RequestBody @Valid Match match) {
         Match createdMatch = matchService.createMatch(match);
         return new ResponseEntity<>(createdMatch, HttpStatus.CREATED);
     }
@@ -39,7 +40,7 @@ public class MatchController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Match> updateMatch(@PathVariable Long id, @RequestBody Match match) {
+    public ResponseEntity<Match> updateMatch(@PathVariable Long id, @RequestBody @Valid Match match) {
         Optional<Match> updatedMatch = matchService.updateMatch(id, match);
         return updatedMatch
                 .map(ResponseEntity::ok)

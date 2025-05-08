@@ -1,6 +1,8 @@
 package org.example.database.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "odds")
@@ -10,12 +12,15 @@ public class Odds {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "match_id")
     private Long matchId;
 
+    @NotBlank
     @Column(name = "specifier")
     private String specifier;
 
+    @NotNull
     @Column(name = "odd")
     private Double odd;
 
