@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "match")
-public class MatchEntity {
+public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

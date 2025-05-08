@@ -3,16 +3,15 @@ package org.example.database.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "match_odds")
-public class MatchOdds {
+@Table(name = "odds")
+public class Odds {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "match_id", nullable = false)
-    private MatchEntity match;
+    @Column(name = "match_id")
+    private Long matchId;
 
     @Column(name = "specifier")
     private String specifier;
@@ -28,12 +27,12 @@ public class MatchOdds {
         this.id = id;
     }
 
-    public MatchEntity getMatch() {
-        return match;
+    public Long getMatchId() {
+        return matchId;
     }
 
-    public void setMatch(MatchEntity match) {
-        this.match = match;
+    public void setMatchId(Long matchId) {
+        this.matchId = matchId;
     }
 
     public String getSpecifier() {

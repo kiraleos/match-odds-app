@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.database.model.MatchEntity;
+import org.example.database.model.Match;
 import org.example.service.MatchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/match")
+@RequestMapping("/api/matches")
 public class MatchController {
 
     private final MatchService matchService;
@@ -20,27 +20,27 @@ public class MatchController {
     }
 
     @PostMapping
-    public ResponseEntity<MatchEntity> createMatch(@RequestBody MatchEntity match) {
-        MatchEntity createdMatch = matchService.createMatch(match);
+    public ResponseEntity<Match> createMatch(@RequestBody Match match) {
+        Match createdMatch = matchService.createMatch(match);
         return new ResponseEntity<>(createdMatch, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MatchEntity> getMatch(@PathVariable Long id) {
-        Optional<MatchEntity> match = matchService.getMatchById(id);
+    public ResponseEntity<Match> getMatch(@PathVariable Long id) {
+        Optional<Match> match = matchService.getMatchById(id);
         return match
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public List<MatchEntity> getAllMatches() {
+    public List<Match> getAllMatches() {
         return matchService.getAllMatches();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MatchEntity> updateMatch(@PathVariable Long id, @RequestBody MatchEntity match) {
-        Optional<MatchEntity> updatedMatch = matchService.updateMatch(id, match);
+    public ResponseEntity<Match> updateMatch(@PathVariable Long id, @RequestBody Match match) {
+        Optional<Match> updatedMatch = matchService.updateMatch(id, match);
         return updatedMatch
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.database.model.MatchEntity;
+import org.example.database.model.Match;
 import org.example.database.repository.MatchRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +16,19 @@ public class MatchService {
         this.matchRepository = matchRepository;
     }
 
-    public MatchEntity createMatch(MatchEntity match) {
+    public Match createMatch(Match match) {
         return matchRepository.save(match);
     }
 
-    public Optional<MatchEntity> getMatchById(Long id) {
+    public Optional<Match> getMatchById(Long id) {
         return matchRepository.findById(id);
     }
 
-    public List<MatchEntity> getAllMatches() {
+    public List<Match> getAllMatches() {
         return matchRepository.findAll();
     }
 
-    public Optional<MatchEntity> updateMatch(Long id, MatchEntity match) {
+    public Optional<Match> updateMatch(Long id, Match match) {
         if (matchRepository.existsById(id)) {
             match.setId(id);
             return Optional.of(matchRepository.save(match));
