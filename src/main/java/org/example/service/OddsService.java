@@ -4,6 +4,7 @@ import org.example.database.model.Odds;
 import org.example.database.repository.OddsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class OddsService {
         return oddsRepository.save(odds);
     }
 
+    @Cacheable(value = "matchOdds", key = "#id" + "." + "#matchId")
     public Optional<Odds> getMatchOddsById(Long id, Long matchId) {
         logger.info("Getting match odds with id {} for match id {}", id, matchId);
         return oddsRepository
@@ -34,6 +36,7 @@ public class OddsService {
                 .filter(match -> match.getMatchId().equals(matchId));
     }
 
+    @Cacheable(value = "matchOddsMatchId", key = "#matchId")
     public List<Odds> getMatchOddsByMatchId(Long matchId) {
         logger.info("Getting match odds for match id {}", matchId);
         return oddsRepository.findByMatchId(matchId);

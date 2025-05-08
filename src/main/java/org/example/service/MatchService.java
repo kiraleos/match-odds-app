@@ -4,6 +4,7 @@ import org.example.database.model.Match;
 import org.example.database.repository.MatchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,13 @@ public class MatchService {
         return matchRepository.save(match);
     }
 
+    @Cacheable(value = "matches", key = "#id")
     public Optional<Match> getMatchById(Long id) {
         logger.info("Getting match with id {}", id);
         return matchRepository.findById(id);
     }
 
+    @Cacheable("allMatches")
     public List<Match> getAllMatches() {
         logger.info("Getting all matches");
         return matchRepository.findAll();
