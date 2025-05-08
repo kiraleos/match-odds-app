@@ -3,9 +3,12 @@ package org.example.controller.exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +28,25 @@ public class ValidationExceptionHandler {
         );
         return ResponseEntity.badRequest().body(errors);
     }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<String> handleNotFound(NoHandlerFoundException ex) {
+        logger.warn("Route not found: {}", ex.getRequestURL());
+        return ResponseEntity.status(404).body("Route not found");
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<String> handleNoResourceFound(NoResourceFoundException ex) {
+        logger.warn("Static resource not found: {}", ex.getResourcePath());
+        return ResponseEntity.status(404).body("Not found");
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleInvalidFormat(HttpMessageNotReadableException ex) {
+        logger.warn("Invalid input format: {}", ex.getMessage());
+        return ResponseEntity.badRequest().body("Invalid request format");
+    }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleOtherExceptions(Exception ex) {

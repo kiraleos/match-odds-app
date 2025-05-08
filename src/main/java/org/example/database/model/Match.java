@@ -1,5 +1,6 @@
 package org.example.database.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,10 +22,12 @@ public class Match {
 
     @NotNull
     @Column(name = "match_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate matchDate;
 
     @NotNull
     @Column(name = "match_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime matchTime;
 
     @NotBlank

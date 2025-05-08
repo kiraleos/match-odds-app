@@ -20,7 +20,7 @@ public class MatchService {
     }
 
     public Match createMatch(Match match) {
-        logger.info("Creating match {}", match);
+        logger.info("Creating match {}", match.getDescription());
         return matchRepository.save(match);
     }
 
