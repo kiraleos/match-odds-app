@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/matches/{matchId}/odds")
+@RequestMapping("/api/v1/matches/{matchId}/odds")
 public class OddsController {
 
     private final OddsService oddsService;
