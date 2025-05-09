@@ -17,8 +17,6 @@ betting odds. It was developed as part of a take-home interview assignment.
 
 - Java 21
 - Spring Boot 3
-- Spring Web
-- Spring Data JPA
 - Postgres database
 - JUnit & Mockito (for unit and integration tests)
 - Docker
@@ -27,29 +25,29 @@ betting odds. It was developed as part of a take-home interview assignment.
 
 ## Design & Implementation Decisions
 
-### 1. **Domain Modeling**
+### 1. Domain Modeling
 
 - **Entities:**
     - `Match`: Represents a match with attributes like `teamA`, `teamB`, `matchDate`.
     - `Odds`: Linked to a `Match` via a `matchId` field. Includes `specifier` and `odd`.
 
-### 2. **Error Handling**
+### 2. Error Handling
 
 - Implemented a global exception handler using `@ControllerAdvice` to catch and return meaningful error messages (e.g.,
   404 for not found, 400 for invalid input).
 - Validations are enforced with Hibernate Validator (`@NotNull`, `@Min`, etc.) and checked at the service level.
 
-### 3. **Persistence**
+### 3. Persistence
 
 - Postgres is used as the database of choice.
 - Spring Data JPA repositories (`MatchRepository`, `OddsRepository`) handle basic CRUD operations.
 
-### 4. **Service Layer**
+### 4. Service Layer
 
 - Business logic (e.g., validating match existence before creating odds) is handled in service classes.
 - Service layer ensures clear separation of concerns and better testability.
 
-### 5. **Testing**
+### 5. Testing
 
 - Unit tests cover services with mocked repositories.
 
@@ -95,3 +93,10 @@ docker compose logs -f app
 
 You can access the swagger docs of the API by visiting [this link](http://localhost:1234/swagger-ui/index.html) while
 the app is running.
+
+## Comments
+
+1. There should be DTOs instead of returning the entities themselves in the controller layer, but I omitted them for
+   this assignment.
+2. Factories should be used for creating instances of the entities during testing to avoid setting each field separately
+   for every test.

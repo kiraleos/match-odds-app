@@ -39,7 +39,7 @@ public class MatchService {
 
     public Optional<Match> updateMatch(Long id, Match match) {
         if (matchRepository.existsById(id)) {
-            match.setId(id);
+            match.setId(id); // In order for JPA to not generate its own id due to the @Id annotation on the entity
             return Optional.of(matchRepository.save(match));
         }
         return Optional.empty();
