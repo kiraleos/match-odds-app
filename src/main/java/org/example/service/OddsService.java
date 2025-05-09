@@ -4,6 +4,7 @@ import org.example.database.model.Odds;
 import org.example.database.repository.OddsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class OddsService {
         this.oddsRepository = oddsRepository;
     }
 
+    @CacheEvict(value = "matchOddsMatchId", key = "#matchId")
     public Odds createMatchOdds(Odds odds, Long matchId) {
         logger.info("Creating match odds for match id {}", matchId);
         if (odds.getMatchId() == null) {
@@ -42,6 +44,7 @@ public class OddsService {
         return oddsRepository.findByMatchId(matchId);
     }
 
+    @CacheEvict(value = {"matchOdds", "matchOddsMatchId"}, key = "#id" + "." + "#matchId")
     public Optional<Odds> updateMatchOdds(Long id, Odds odds, Long matchId) {
         logger.info("Updating match odds for match id {}", matchId);
         if (oddsRepository.existsByIdAndMatchId(id, matchId)) {
@@ -51,6 +54,7 @@ public class OddsService {
         return Optional.empty();
     }
 
+    @CacheEvict(value = {"matchOdds", "matchOddsMatchId"}, key = "#id + '.' + #matchId")
     public boolean deleteMatchOdds(Long id, Long matchId) {
         logger.info("Deleting match odds for match id {}", matchId);
         if (oddsRepository.existsByIdAndMatchId(id, matchId)) {

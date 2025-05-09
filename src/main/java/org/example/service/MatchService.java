@@ -4,6 +4,7 @@ import org.example.database.model.Match;
 import org.example.database.repository.MatchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class MatchService {
         this.matchRepository = matchRepository;
     }
 
+    @CacheEvict(value = "allMatches", allEntries = true)
     public Match createMatch(Match match) {
         logger.info("Creating match {}", match.getDescription());
         return matchRepository.save(match);
@@ -37,6 +39,7 @@ public class MatchService {
         return matchRepository.findAll();
     }
 
+    @CacheEvict(value = "matches", key = "#id")
     public Optional<Match> updateMatch(Long id, Match match) {
         if (matchRepository.existsById(id)) {
             match.setId(id); // In order for JPA to not generate its own id due to the @Id annotation on the entity
@@ -45,6 +48,7 @@ public class MatchService {
         return Optional.empty();
     }
 
+    @CacheEvict(value = {"matches", "allMatches"}, key = "#id", allEntries = true)
     public Boolean deleteMatch(Long id) {
         logger.info("Deleting match with id {}", id);
         if (matchRepository.existsById(id)) {
