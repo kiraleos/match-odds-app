@@ -90,6 +90,12 @@ and optionally
 docker compose logs -f app
 ```
 
+### Running tests
+
+***To run the functional tests, the docker engine must be running on the host machine***
+
+`mvn test`
+
 ## Swagger docs
 
 You can access the swagger docs of the API by visiting [this link](http://localhost:1234/swagger-ui/index.html) while
