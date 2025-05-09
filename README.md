@@ -18,7 +18,7 @@ betting odds. It was developed as part of a take-home interview assignment.
 - Java 21
 - Spring Boot 3
 - Postgres database
-- JUnit & Mockito
+- JUnit, Mockito & TestContainers (for unit and functional tests)
 - Docker
 
 ---
@@ -50,6 +50,7 @@ betting odds. It was developed as part of a take-home interview assignment.
 ### 5. Testing
 
 - Unit tests cover services with mocked repositories.
+- Basic functional (integration) tests cover the controller layer.
 
 ---
 
