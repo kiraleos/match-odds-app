@@ -18,7 +18,7 @@ betting odds. It was developed as part of a take-home interview assignment.
 - Java 21
 - Spring Boot 3
 - Postgres database
-- JUnit & Mockito (for unit and integration tests)
+- JUnit & Mockito
 - Docker
 
 ---
